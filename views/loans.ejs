@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">
+          <a href="/books">Books</a>
+        </div>
+        <div class="nav-links">
+          <a href="/books">Books</a>
+          <a href="/loans">Loans</a>
+          <% if (user && user.role === 'ADMIN') { %>
+            <a href="/users">Users</a>
+          <% } %>
+          <% if (!user) { %>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+          <% } else { %>
+            <a href="/logout">Logout</a>
+          <% } %>
+        </div>
+      </nav>   
+    <div class="container">
+        <h1>Loans</h1>
+        <a href="/loans/new">Add New Loan</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Book ID</th>
+                    <th>Loan Date</th>
+                    <th>Return Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% loans.forEach(loan => { %>
+                    <tr>
+                        <td><%= loan.id %></td>
+                        <td><%= loan.userId %></td>
+                        <td><%= loan.bookId %></td>
+                        <td><%= loan.loanDate.toISOString().slice(0, 10) %></td>
+                        <td><%= loan.returnDate ? loan.returnDate.toISOString().slice(0, 10) : 'Not Returned' %></td>
+                        <td>
+                            <a href="/loans/<%= loan.id %>">Edit</a> |
+                            <a href="/loans/<%= loan.id %>/delete">Delete</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

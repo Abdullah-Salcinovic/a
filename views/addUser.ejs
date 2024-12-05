@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-brand">
+          <a href="/books">Books</a>
+        </div>
+        <div class="nav-links">
+          <a href="/books">Books</a>
+          <a href="/loans">Loans</a>
+          <% if (user && user.role === 'ADMIN') { %>
+            <a href="/users">Users</a>
+          <% } %>
+          <% if (!user) { %>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+          <% } else { %>
+            <a href="/logout">Logout</a>
+          <% } %>
+        </div>
+      </nav>   
+    <div class="container form-container">
+        <h1>Add New User</h1>
+        <form action="/users/new" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="role">Role</label>
+            <select id="role" name="role">
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+            </select>
+
+            <button type="submit">Add User</button>
+        </form>
+        <a href="/users">Cancel</a>
+    </div>
+</body>
+</html>
